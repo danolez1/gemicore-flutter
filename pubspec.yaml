@@ -11,8 +11,6 @@ topics:
   - paywall
   - payments
   - monetization
-# The owner decides when this goes to pub.dev (triage decision O-D12).
-publish_to: none
 
 environment:
   sdk: ^3.13.7
