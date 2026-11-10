@@ -14,6 +14,7 @@ import 'native_pay.dart';
 import 'offerings.dart';
 import 'storage.dart';
 import 'store_bridge.dart';
+import 'stripe_pay_sheet.dart';
 import 'url_opener.dart';
 
 enum GemicoreLogLevel { none, error, info, debug }
@@ -55,7 +56,7 @@ class Gemicore with WidgetsBindingObserver {
     required GemicoreStorage storage,
     required StoreBridge store,
     required CheckoutOpener checkoutOpener,
-    required NativePaySheet? nativePaySheet,
+    required NativePaySheet nativePaySheet,
     required bool? useTestStore,
     required GemicoreLogLevel logLevel,
     required Duration restoreQuietPeriod,
@@ -99,8 +100,8 @@ class Gemicore with WidgetsBindingObserver {
   /// only required value: test keys (pk_test_) talk to store sandboxes and the test store, live keys
   /// to production. [appUserId] logs the customer in at once when the app already knows who it is.
   ///
-  /// [nativePaySheet] is optional and only needed for [payWithSheet]: pass the sheet from the
-  /// gemicore_flutter_stripe package to take Apple Pay and Google Pay inside the app.
+  /// [nativePaySheet] is optional and only used by [payWithSheet]: the Stripe payment sheet is the
+  /// default, so pass one only to replace it (for tests, or another sheet).
   ///
   /// [userTokenProvider] is only for apps that turned on verified identity in the dashboard: it
   /// returns the signed in user's Gemicore access token, which the SDK sends when it links the
@@ -157,7 +158,7 @@ class Gemicore with WidgetsBindingObserver {
       storage: storage ?? SecureGemicoreStorage(),
       store: bridge,
       checkoutOpener: checkoutOpener ?? const InAppBrowserCheckoutOpener(),
-      nativePaySheet: nativePaySheet,
+      nativePaySheet: nativePaySheet ?? GemicoreStripePaySheet(),
       useTestStore: useTestStore,
       logLevel: logLevel,
       restoreQuietPeriod: restoreQuietPeriod,
@@ -220,7 +221,7 @@ class Gemicore with WidgetsBindingObserver {
   final GemicoreStorage _storage;
   final StoreBridge _store;
   final CheckoutOpener _checkoutOpener;
-  final NativePaySheet? _nativePaySheet;
+  final NativePaySheet _nativePaySheet;
   final bool? _useTestStoreSetting;
   final GemicoreLogLevel _logLevel;
   final Duration _restoreQuietPeriod;
@@ -1221,7 +1222,7 @@ class Gemicore with WidgetsBindingObserver {
   }
 
   /// Pays for a one-time [product] with the Apple Pay or Google Pay sheet inside the app, through the
-  /// [NativePaySheet] passed to [configure] (the gemicore_flutter_stripe package provides one). Same
+  /// [NativePaySheet] passed to [configure], the Stripe payment sheet unless replaced. Same
   /// rules as [payWithCard]: only for physical goods and real-world services, and the price is the
   /// catalog's card price. [email] receives the receipt.
   ///
@@ -1236,14 +1237,6 @@ class Gemicore with WidgetsBindingObserver {
     Duration pollInterval = const Duration(seconds: 2),
     Future<void>? cancel,
   }) async {
-    final sheet = _nativePaySheet;
-    if (sheet == null) {
-      throw const GemicoreException(
-        GemicoreErrorCode.nativePayNotConfigured,
-        'No payment sheet is set up. Add the gemicore_flutter_stripe package and pass its sheet as '
-        'nativePaySheet to Gemicore.configure, or use payWithCard for the hosted checkout.',
-      );
-    }
     final card = product.card;
     if (card == null) {
       throw GemicoreException(
@@ -1258,7 +1251,7 @@ class Gemicore with WidgetsBindingObserver {
     final intent = CardIntentView.fromJson(body);
     final NativePayResult result;
     try {
-      result = await sheet.present(
+      result = await _nativePaySheet.present(
         NativePayRequest(
           clientSecret: intent.clientSecret,
           publishableKey: intent.publishableKey,

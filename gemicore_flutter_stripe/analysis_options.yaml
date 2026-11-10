@@ -1,9 +1,0 @@
-analyzer:
-  exclude:
-    - build/**
-include: package:flutter_lints/flutter.yaml
-
-linter:
-  rules:
-    # Private constructor parameters cannot be initializing formals for private fields under a public name.
-    prefer_initializing_formals: false

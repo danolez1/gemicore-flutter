@@ -1,3 +1,8 @@
+## 0.4.0
+
+- One package: the Apple Pay and Google Pay sheet that shipped separately as `gemicore_flutter_stripe` is part of `gemicore_flutter` now. `GemicoreStripePaySheet` is exported from here and is the default for `payWithSheet`, so `Gemicore.configure(apiKey: ...)` is the whole setup and `nativePaySheet` is only for replacing it. `flutter_stripe` ^14.2.0 is a dependency, which means every app needs iOS 15 or higher and the Android settings listed in the README (`compileSdk` 36, Java 17); the Apple Pay capability, `FlutterFragmentActivity` and an AppCompat theme are needed only to show the sheet.
+- Removed `GemicoreErrorCode.nativePayNotConfigured`: there is always a sheet now.
+
 ## 0.3.0
 
 - Customer attributes: `setAttributes(Map<String, String?>)` (a null value deletes the key), `setEmail`, `setDisplayName` and `setPhoneNumber`. The server limits are checked before the request (50 keys per call, key pattern, 256 characters, only the reserved `$` names) and fail with `GemicoreErrorCode.invalidAttributes`; the server's own refusal is `GemicoreErrorCode.attributesInvalid`. Values are never logged and never put in an error.

@@ -1,6 +1,5 @@
-/// Shows the Apple Pay or Google Pay sheet for a card payment. The core package only defines this
-/// interface so it stays free of a payment SDK; the gemicore_flutter_stripe package implements it
-/// on the Stripe payment sheet.
+/// Shows the Apple Pay or Google Pay sheet for a card payment. [GemicoreStripePaySheet] implements
+/// it on the Stripe payment sheet and is the default; implement it to use another sheet.
 abstract class NativePaySheet {
   /// Presents the sheet and completes when the customer has paid, closed it or the payment failed.
   /// The payment itself settles on the server; the SDK waits for that after a completed result.

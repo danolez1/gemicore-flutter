@@ -25,7 +25,6 @@ abstract final class GemicoreErrorCode {
   static const productNotAvailable = 'SDK_PRODUCT_NOT_AVAILABLE';
   static const offerNotSupported = 'SDK_OFFER_NOT_SUPPORTED';
   static const paywallNotAvailable = 'SDK_PAYWALL_NOT_AVAILABLE';
-  static const nativePayNotConfigured = 'SDK_NATIVE_PAY_NOT_CONFIGURED';
   static const nativePayFailed = 'SDK_NATIVE_PAY_FAILED';
   static const paymentFailed = 'SDK_PAYMENT_FAILED';
 

@@ -7,8 +7,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // The only setup: the publishable key from the Gemicore dashboard. A pk_test_ key uses the store
   // sandboxes, or the Gemicore test store when no store is available (a simulator, an emulator).
-  // Apple Pay and Google Pay inside the app are optional: add the gemicore_flutter_stripe package and
-  // pass its sheet as nativePaySheet, then sell physical goods with Gemicore.instance.payWithSheet.
+  // Apple Pay and Google Pay inside the app need the native setup in the README, then physical goods
+  // sell with Gemicore.instance.payWithSheet.
   await Gemicore.configure(apiKey: const String.fromEnvironment('GEMICORE_KEY'));
   runApp(const ExampleApp());
 }

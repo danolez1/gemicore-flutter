@@ -24,5 +24,7 @@ export 'src/paywall_config.dart';
 export 'src/paywall_variables.dart' show PaywallPeriodLabeler, defaultPeriodLabel;
 export 'src/storage.dart' show GemicoreStorage, SecureGemicoreStorage, MemoryGemicoreStorage;
 export 'src/store_bridge.dart';
+export 'src/stripe_api.dart' show StripePaymentSheetApi, StripeStaticApi;
+export 'src/stripe_pay_sheet.dart' show GemicoreStripePaySheet;
 export 'src/subscription_period.dart';
 export 'src/url_opener.dart';

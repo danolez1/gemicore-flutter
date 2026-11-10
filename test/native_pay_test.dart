@@ -49,7 +49,7 @@ void main() {
 
   const pollFast = Duration(milliseconds: 5);
 
-  test('the interface keeps the names the add-on package implements', () {
+  test('the interface keeps the names the Stripe sheet implements', () {
     const request = NativePayRequest(
       clientSecret: 's',
       publishableKey: 'p',
@@ -70,18 +70,17 @@ void main() {
     expect(const NativePayResult.completed().message, isNull);
   });
 
-  test('without a sheet it says to add the gemicore_flutter_stripe package', () async {
+  test('without a sheet passed the Stripe sheet is used', () async {
     final sdk = await h.configure();
     final product = await tshirt(sdk);
     await expectLater(
       sdk.payWithSheet(product, email: 'b@example.com'),
       throwsA(
         isA<GemicoreException>()
-            .having((e) => e.code, 'code', GemicoreErrorCode.nativePayNotConfigured)
-            .having((e) => e.message, 'message', contains('gemicore_flutter_stripe')),
+            .having((e) => e.code, 'code', GemicoreErrorCode.nativePayFailed)
+            .having((e) => e.message, 'message', contains('Stripe payment sheet')),
       ),
     );
-    expect(h.transport.calls('POST', '/v1/purchases/checkout/intent'), isEmpty);
   });
 
   test('a product without a card price is refused before any request', () async {

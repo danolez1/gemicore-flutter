@@ -1,10 +1,10 @@
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:gemicore_flutter/gemicore_flutter.dart';
 
+import 'native_pay.dart';
 import 'stripe_api.dart';
 
-/// Apple Pay and Google Pay inside the app, on the Stripe payment sheet. Pass it to
-/// `Gemicore.configure(nativePaySheet: GemicoreStripePaySheet())`.
+/// Apple Pay and Google Pay inside the app, on the Stripe payment sheet. It is the default for
+/// `Gemicore.payWithSheet`; pass your own `nativePaySheet` to `Gemicore.configure` to replace it.
 ///
 /// The sheet only confirms the payment with Stripe. The server prices the intent and settles the
 /// purchase, and the core SDK waits for that after a completed result.
@@ -51,7 +51,7 @@ class GemicoreStripePaySheet implements NativePaySheet {
       // Only the type: a plugin or platform error can quote the request, client secret included.
       return NativePayResult.failed(
         'The Stripe payment sheet failed (${error.runtimeType}). Check the native setup in the '
-        'gemicore_flutter_stripe README.',
+        'gemicore_flutter README.',
       );
     }
   }
