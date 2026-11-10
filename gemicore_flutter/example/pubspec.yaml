@@ -1,0 +1,22 @@
+name: gemicore_flutter_example
+description: "Minimal app that sells a subscription, shows an offerings paywall and takes a card-paid product with gemicore_flutter."
+publish_to: none
+version: 0.3.0
+
+environment:
+  sdk: ^3.13.7
+  flutter: ">=3.47.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  gemicore_flutter:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,36 @@
+name: gemicore_flutter
+description: "Purchases for Flutter: App Store and Google Play subscriptions, offerings and paywalls, card, Apple Pay and Google Pay payments, and entitlements with one API key."
+version: 0.3.0
+repository: https://github.com/danolez1/gemicore-flutter/tree/main/gemicore_flutter
+homepage: https://gemicore.com/docs/guide/in-app-purchases
+issue_tracker: https://github.com/danolez1/gemicore-flutter/issues
+# Lowercase, at most five; shown on pub.dev for search.
+topics:
+  - in-app-purchase
+  - subscriptions
+  - paywall
+  - payments
+  - monetization
+# The owner decides when this goes to pub.dev (triage decision O-D12).
+publish_to: none
+
+environment:
+  sdk: ^3.13.7
+  flutter: ">=3.47.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^11.2.0
+  http: ^1.6.0
+  in_app_purchase: ^3.3.1
+  in_app_purchase_android: ^0.5.5
+  in_app_purchase_storekit: ^0.4.16
+  intl: ^0.20.2
+  package_info_plus: ^10.2.2
+  url_launcher: ^6.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
