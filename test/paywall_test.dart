@@ -105,7 +105,7 @@ void main() {
     await pumpPaywall(tester, s);
     // text
     expect(find.text('Go Pro'), findsOneWidget);
-    expect(find.text('Unlock everything. Cancel any time.'), findsOneWidget);
+    expect(find.text('Full access to every feature, and you can cancel any time.'), findsOneWidget);
     // package_list: the monthly package has no display name, so it shows the product title
     expect(find.text('Pro monthly'), findsOneWidget);
     expect(find.text('Pro annual'), findsOneWidget);
@@ -148,11 +148,11 @@ void main() {
     );
     await pumpPaywall(tester, s);
     final title = tester.getTopLeft(find.text('Go Pro'));
-    final subtitle = tester.getTopLeft(find.text('Unlock everything. Cancel any time.'));
+    final subtitle = tester.getTopLeft(find.text('Full access to every feature, and you can cancel any time.'));
     expect(subtitle.dx, greaterThan(title.dx));
     final centers = (
       tester.getCenter(find.text('Go Pro')).dy,
-      tester.getCenter(find.text('Unlock everything. Cancel any time.')).dy,
+      tester.getCenter(find.text('Full access to every feature, and you can cancel any time.')).dy,
     );
     expect((centers.$1 - centers.$2).abs(), lessThan(2), reason: 'a row centers its children');
     expect(tester.takeException(), isNull);
@@ -300,7 +300,7 @@ void main() {
       final s = await setup(paywallConfig: config);
       await pumpPaywall(tester, s, locale: const Locale('de'));
       expect(find.text('Pro werden'), findsOneWidget);
-      expect(find.text('Unlock everything. Cancel any time.'), findsOneWidget);
+      expect(find.text('Full access to every feature, and you can cancel any time.'), findsOneWidget);
     });
 
     testWidgets('a key no table has renders nothing for that node', (tester) async {
@@ -678,7 +678,7 @@ void main() {
       );
       await pumpPaywall(tester, s, config: other);
       expect(find.text('Go Pro'), findsNothing);
-      expect(find.text('Unlock everything. Cancel any time.'), findsOneWidget);
+      expect(find.text('Full access to every feature, and you can cancel any time.'), findsOneWidget);
     });
   });
 
@@ -711,9 +711,9 @@ void main() {
       ]);
       final s = await setup(paywallConfig: config);
       await pumpPaywall(tester, s);
-      final ltr = tester.getTopLeft(find.text('Unlock everything. Cancel any time.')).dx;
+      final ltr = tester.getTopLeft(find.text('Full access to every feature, and you can cancel any time.')).dx;
       await pumpPaywall(tester, s, direction: TextDirection.rtl);
-      final rtlRight = tester.getTopRight(find.text('Unlock everything. Cancel any time.')).dx;
+      final rtlRight = tester.getTopRight(find.text('Full access to every feature, and you can cancel any time.')).dx;
       final screen = tester.view.physicalSize.width / tester.view.devicePixelRatio;
       expect(ltr, lessThan(40));
       expect(rtlRight, greaterThan(screen - 40));

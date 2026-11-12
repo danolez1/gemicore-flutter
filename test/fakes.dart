@@ -351,7 +351,7 @@ Map<String, Object?> samplePaywallConfig() => {
   'strings': {
     'en': {
       'title': 'Go Pro',
-      'subtitle': 'Unlock everything. Cancel any time.',
+      'subtitle': 'Full access to every feature, and you can cancel any time.',
       'price_line': '{{package.price}} per {{package.period}}',
       'trial_line': 'Start with {{package.trial}} free',
       'savings': 'Only {{package.pricePerMonth}} a month',
@@ -360,7 +360,7 @@ Map<String, Object?> samplePaywallConfig() => {
     },
     'de': {
       'title': 'Pro werden',
-      'subtitle': 'Alles freischalten. Jederzeit kuendbar.',
+      'subtitle': 'Voller Zugriff auf alle Funktionen, jederzeit kuendbar.',
       'price_line': '{{package.price}} pro {{package.period}}',
       'trial_line': '{{package.trial}} kostenlos testen',
       'savings': 'Nur {{package.pricePerMonth}} im Monat',
